@@ -24,3 +24,5 @@ yarn-error.log*
 
 # .env
 .env
+
+/public/KC_495_LLR_ATRCTN_2023.csv
