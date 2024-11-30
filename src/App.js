@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React, { useState } from 'react';
+import Search from './components/Search';
+import Weather from './components/Weather';
+
+const App = () => {
+    const [searchCity, setSearchCity] = useState(''); // 검색된 도시 이름
+
+    const handleSearch = (cityName) => {
+        setSearchCity(cityName); // 검색 결과를 상태로 저장
+    };
+
+    return (
+        <div>
+            <h1>여행 & 날씨 정보</h1>
+
+            {/* Search 컴포넌트 */}
+            <Search onSearch={handleSearch} />
+
+            {/* Weather 컴포넌트 */}
+            {searchCity && <Weather cityName={searchCity} />}
+        </div>
+    );
+};
 
 export default App;
