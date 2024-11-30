@@ -1,31 +1,32 @@
 // App.js
 
 import React, { useState } from 'react';
+import './App.css'; // App.css 연결
 import Search from './components/Search';
 import Weather from './components/Weather';
-import TourismList from './components/TourismList'; // 관광지 컴포넌트 추가
+import TourismList from './components/TourismList';
 
 const App = () => {
-    const [searchCity, setSearchCity] = useState(''); // 검색된 도시 이름
+    const [searchCity, setSearchCity] = useState('');
 
     const handleSearch = (cityName) => {
-        setSearchCity(cityName); // 검색 결과를 상태로 저장
+        setSearchCity(cityName);
     };
 
     return (
-        <div>ㅓ
+        <div className="App">
             <h1>여행 & 날씨 정보</h1>
 
-            {/* Search 컴포넌트 */}
-            <Search onSearch={handleSearch} />
-
-            <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-                {/* Weather 컴포넌트 */}
-                {searchCity && <Weather cityName={searchCity} />}
-
-                {/* TourismList 컴포넌트 */}
-                {searchCity && <TourismList cityName={searchCity} />}
+            <div className="Search">
+                <Search onSearch={handleSearch} />
             </div>
+
+            {searchCity && (
+                <div style={{ marginTop: '20px' }}>
+                    <Weather cityName={searchCity} />
+                    <TourismList cityName={searchCity} />
+                </div>
+            )}
         </div>
     );
 };

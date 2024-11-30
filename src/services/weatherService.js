@@ -36,13 +36,21 @@ export const fetchWeatherData = async (latitude, longitude) => {
             params: {
                 lat: latitude,
                 lon: longitude,
-                exclude: 'minutely,hourly', // 필요 없는 데이터 제외
-                units: 'metric',            // 섭씨 단위
-                lang: 'kr',                 // 한국어
-                appid: WEATHER_API_KEY,     // API 키
+                exclude: 'minutely,hourly',
+                units: 'metric',
+                lang: 'kr',
+                appid: WEATHER_API_KEY,
             },
         });
-        return response.data;
+
+        // API 응답 데이터 반환
+        return response.data.daily.map((day) => ({
+            date: new Date(day.dt * 1000), // 날짜 변환
+            minTemp: day.temp.min,        // 최저 온도
+            maxTemp: day.temp.max,        // 최고 온도
+            description: day.weather[0].description, // 날씨 설명
+            icon: day.weather[0].icon,   // 날씨 아이콘 코드
+        }));
     } catch (error) {
         console.error('OneCall API 호출 오류:', error);
         throw error;
